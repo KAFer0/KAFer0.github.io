@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News - 観測所</title>
+
+    <!-- CSSの読み込み -->
+    <link rel="stylesheet" href="style_reset.css">
+    <link rel="stylesheet" href="style_loader.css">
+    <link rel="stylesheet" href="style_common.css">
+    <link rel="stylesheet" href="style_animation.css">
+    <link rel="stylesheet" href="style_page_news.css"> <!-- このページ専用CSS -->
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=Noto+Serif+JP:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- ローディング画面 -->
+    <div id="loader">KAF</div>
+
+    <header class="site-header">
+        <div class="site-title">
+            <a href="index.html"><h1>観測所</h1></a>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Top</a></li>
+                <li><a href="about.html">About KAF</a></li>
+                <li><a href="discography.html">Discography</a></li>
+                <li><a href="live.html">Live</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="news.html">News</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="content-wrapper fade-in">
+            <h2 class="section-title">News & Updates</h2>
+            
+            <ul class="news-list">
+                <!-- ニュース記事1 -->
+                <li class="news-item fade-in">
+                    <a href="#">
+                        <div class="news-meta">
+                            <span class="news-date">2025.09.15</span>
+                            <span class="news-category">SITE</span>
+                        </div>
+                        <h3 class="news-title">ファンサイト「観測所」オープン！</h3>
+                    </a>
+                </li>
+                <!-- ニュース記事2 -->
+                <li class="news-item fade-in">
+                    <a href="#">
+                        <div class="news-meta">
+                            <span class="news-date">2025.09.10</span>
+                            <span class="news-category">KAF INFO</span>
+                        </div>
+                        <h3 class="news-title">花譜 4th ONE-MAN LIVE「不可解」開催決定！</h3>
+                    </a>
+                </li>
+                <!-- ニュース記事3 -->
+                <li class="news-item fade-in">
+                    <a href="#">
+                        <div class="news-meta">
+                            <span class="news-date">2025.09.01</span>
+                            <span class="news-category">UPDATE</span>
+                        </div>
+                        <h3 class="news-title">ギャラリーページに新作ファンアートを追加しました。</h3>
+                    </a>
+                </li>
+                <!-- 必要に応じて、ここにさらにニュース記事を追加してください -->
+            </ul>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <p>当サイトはファンが運営する非公式サイトであり、花譜さんご本人及びKAMITSUBAKI STUDIO様とは一切関係ありません。</p>
+        <p>&copy; 2025 観測所.</p>
+    </footer>
+
+    <!-- JavaScriptの読み込み -->
+    <script src="script_loader.js"></script>
+    <script src="script_main.js"></script>
+    <script src="script_animation_control.js"></script>
+</body>
+</html>

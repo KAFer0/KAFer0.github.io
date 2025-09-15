@@ -1,0 +1,45 @@
+/*
+  style_animation.css
+  ---
+  サイト全体で再利用可能な、汎用的なアニメーション効果を定義する。
+  主に JavaScript と連携して、要素が表示領域に入った際などに使用されることを想定。
+*/
+
+
+/* 
+  フェードイン（初期状態：非表示）
+  ==========================================
+  使い方：
+  アニメーションさせたい要素に .fade-in クラスを追加する。
+  JavaScript側で、画面内に入ったタイミングなどで .is-visible クラスを付与すると
+  アニメーションが開始される。
+*/
+
+.fade-in {
+    opacity: 0;
+    transform: translateY(20px); /* 少し下から浮かび上がる */
+    transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+                transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.fade-in.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+/* 
+  ボディ全体のフェードイン
+  ==========================================
+  ローディング完了後にページ本体を表示するためのアニメーション。
+  style_common.css 内の body タグに直接適用される。
+*/
+
+@keyframes fadeInBody {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}

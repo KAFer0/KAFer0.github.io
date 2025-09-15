@@ -1,0 +1,112 @@
+/*
+  style_page_live.css
+  ---
+  ライブ履歴ページ (live.html) 固有のスタイル。
+  時系列に沿ったイベントリストを、中央の縦線を持つタイムライン形式で表示する。
+*/
+
+.timeline {
+  position: relative;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* 中央を貫くタイムラインの縦線 */
+.timeline::after {
+  content: '';
+  position: absolute;
+  width: 2px;
+  background-color: rgba(255, 255, 255, 0.2);
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  margin-left: -1px;
+}
+
+.timeline-item {
+  padding: 10px 40px;
+  position: relative;
+  width: 50%;
+}
+
+/* 各アイテムの丸いマーカー */
+.timeline-item::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-color: #0a0a0a;
+  border: 2px solid #00bfff;
+  border-radius: 50%;
+  top: 25px;
+  z-index: 1;
+}
+
+/* タイムラインの左側に配置されるアイテム */
+.timeline-item.left {
+  left: 0;
+  padding-right: 70px;
+  text-align: right;
+}
+
+.timeline-item.left::after {
+  right: -10px; /* マーカーを中央線上に配置 */
+}
+
+/* タイムラインの右側に配置されるアイテム */
+.timeline-item.right {
+  left: 50%;
+  padding-left: 70px;
+  text-align: left;
+}
+
+.timeline-item.right::after {
+  left: -10px; /* マーカーを中央線上に配置 */
+}
+
+
+.timeline-content {
+  padding: 20px 30px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 6px;
+  position: relative;
+}
+
+.timeline-content h3 {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 1.5rem;
+  color: #fff;
+}
+
+.timeline-content time {
+  display: block;
+  font-size: 0.9rem;
+  color: #aaa;
+  margin-bottom: 10px;
+}
+
+/* レスポンシブ対応 (スマホ表示) */
+@media (max-width: 768px) {
+  /* タイムラインの中央線を左に寄せる */
+  .timeline::after {
+    left: 20px;
+  }
+
+  /* 全てのアイテムを右側に配置 */
+  .timeline-item {
+    width: 100%;
+    padding-left: 50px;
+    padding-right: 20px;
+  }
+  
+  .timeline-item.left,
+  .timeline-item.right {
+    left: 0;
+    text-align: left;
+  }
+  
+  .timeline-item.left::after,
+  .timeline-item.right::after {
+    left: 10px; /* マーカーを左の線上に */
+  }
+}

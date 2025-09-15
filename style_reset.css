@@ -1,0 +1,52 @@
+/*
+  style_reset.css
+  ---
+  ブラウザ間のデフォルトスタイルの差異をなくし、
+  予測可能なスタイリングの基礎を築くためのリセットCSS。
+*/
+
+/* Box sizing を border-box に統一 */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* 全ての要素の margin, padding をリセット */
+body, h1, h2, h3, h4, h5, h6, p, ul, ol, li, figure, figcaption, blockquote, dl, dd {
+  margin: 0;
+  padding: 0;
+}
+
+/* リストのスタイルをリセット */
+ul, ol {
+  list-style: none;
+}
+
+/* body の基本的な設定 */
+body {
+  min-height: 100vh;
+  line-height: 1.5;
+  text-rendering: optimizeSpeed; /* 表示速度を優先 */
+}
+
+/* a タグの基本的なスタイルをリセット */
+a {
+  text-decoration: none;
+  color: inherit; /* 親要素の色を継承 */
+}
+
+/* img や video などのメディア要素の基本的な設定 */
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* フォーム要素のフォントを継承 */
+input, button, textarea, select {
+  font: inherit;
+}
+
+/* テーブルの基本的なリセット */
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}

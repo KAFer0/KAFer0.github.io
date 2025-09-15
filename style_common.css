@@ -1,0 +1,130 @@
+/*
+  style_common.css
+  ---
+  サイト全体で共通して使用される基盤スタイル。
+  背景、基本的なタイポグラフィ、ヘッダー、フッター、共有レイアウトなどを定義する。
+*/
+
+/* --- Google Fonts の読み込み --- */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=Noto+Serif+JP:wght@400;700&display=swap');
+
+/* --- HTMLとBodyの基本設定 --- */
+html {
+  /* スムーズなスクロールを実現 */
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #0a0a0a;
+  color: #e0e0e0;
+  font-family: 'Noto Sans JP', sans-serif; /* 基本フォント */
+  -webkit-font-smoothing: antialiased; /* 文字のアンチエイリアスを滑らかに */
+  text-align: center;
+}
+
+/* --- 背景ノイズテクスチャ --- */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-image: url('https://www.transparenttextures.com/patterns/stardust.png');
+  opacity: 0.05;
+  z-index: -1; /* コンテンツの背後に配置 */
+  pointer-events: none;
+}
+
+/* --- ヘッダー --- */
+.site-header {
+  padding: 50px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.site-title a {
+  display: inline-block; /* アニメーションの基点にするため */
+}
+
+.site-title h1 {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 2.5rem;
+  color: #fff;
+  margin: 0;
+  letter-spacing: 0.2em;
+  font-weight: 700;
+  transition: transform 0.3s, color 0.3s;
+}
+
+.site-title a:hover h1 {
+  transform: scale(1.05);
+  color: #00bfff;
+}
+
+/* --- ナビゲーション --- */
+nav {
+  margin-top: 30px;
+}
+
+nav ul {
+  display: flex; /* 横並び */
+  justify-content: center; /* 中央揃え */
+  gap: 20px; /* 項目間のスペース */
+}
+
+nav a {
+  color: #aaa;
+  font-size: 1rem;
+  letter-spacing: 0.1em;
+  padding: 10px;
+  position: relative;
+  transition: color 0.3s;
+}
+nav a:hover {
+  color: #fff;
+}
+nav a::before,
+nav a::after {
+  content: '';
+  position: absolute;
+  width: 1px;
+  height: 0;
+  background: #00bfff;
+  transition: height 0.2s;
+}
+nav a::before { top: 0; left: 0; }
+nav a::after { bottom: 0; right: 0; }
+nav a:hover::before,
+nav a:hover::after { height: 100%; }
+
+/* --- 共通レイアウト --- */
+.content-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 80px 40px;
+}
+
+.section-title {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 2.5rem;
+  color: #fff;
+  border-bottom: 1px solid #00bfff;
+  padding-bottom: 15px;
+  margin-bottom: 50px;
+}
+
+.text-content {
+  text-align: left;
+  line-height: 2;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* --- フッター --- */
+.site-footer {
+  padding: 40px 20px 20px;
+  font-size: 0.8rem;
+  color: #777;
+  margin-top: 80px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}

@@ -1,0 +1,57 @@
+/*
+  style_page_news.css
+  ---
+  お知らせ・ブログページ (news.html) 固有のスタイル。
+  記事の一覧と、各記事へのリンクを持つリスト形式のデザインを定義する。
+*/
+
+.news-list {
+  list-style: none;
+  padding: 0;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.news-item {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.news-item a {
+  display: block;
+  padding: 30px 20px;
+  text-align: left;
+  transition: background-color 0.3s;
+}
+
+.news-item a:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.news-meta {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 10px;
+}
+
+.news-date {
+  color: #aaa;
+  font-size: 0.9rem;
+}
+
+.news-category {
+  color: #00bfff;
+  font-size: 0.8rem;
+  font-weight: bold;
+  border: 1px solid #00bfff;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.news-title {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 1.5rem;
+  color: #fff;
+  font-weight: normal;
+  margin: 0;
+}

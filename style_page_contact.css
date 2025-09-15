@@ -1,0 +1,70 @@
+/*
+  style_page_contact.css
+  ---
+  コンタクトページ (contact.html) 固有のスタイル。
+  メッセージ投稿用のフォーム要素のデザインを定義する。
+*/
+
+.contact-form {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.form-group {
+  margin-bottom: 25px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: #aaa;
+}
+
+/* 共通のインプットスタイル */
+.form-input {
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  padding: 15px;
+  color: #fff;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+/* フォーカスが当たった時のスタイル */
+.form-input:focus {
+  outline: none;
+  border-color: #00bfff;
+  box-shadow: 0 0 10px rgba(0, 191, 255, 0.3);
+}
+
+textarea.form-input {
+  min-height: 200px;
+  resize: vertical; /* 縦方向のみリサイズ可能に */
+}
+
+.submit-button {
+  background-color: #00bfff;
+  color: #0a0a0a;
+  font-weight: bold;
+  border: none;
+  padding: 15px 30px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+  display: inline-block;
+  width: auto;
+}
+
+.submit-button:hover {
+  background-color: #fff;
+  transform: scale(1.05);
+}
+
+.form-note {
+  margin-top: 40px;
+  font-size: 0.9rem;
+  color: #777;
+  text-align: center;
+}

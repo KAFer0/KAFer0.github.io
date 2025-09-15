@@ -3,70 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>観測 - KAF Unofficial Fan Site</title>
+    <title>観測所 - KAF Unofficial Fan Site</title>
     
-    <!-- スタイルシートの読み込み -->
-    <link rel="stylesheet" href="style.css">
+    <!-- CSSの読み込み -->
+    <link rel="stylesheet" href="style_reset.css">
+    <link rel="stylesheet" href="style_loader.css">
+    <link rel="stylesheet" href="style_common.css">
+    <link rel="stylesheet" href="style_animation.css">
+    <link rel="stylesheet" href="style_page_index.css"> <!-- このページ専用CSS -->
     
-    <!-- Google Fonts の読み込み -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=Noto+Serif+JP:wght@400;700&display=swap" rel="stylesheet">
-    
-    <!-- YouTubeの埋め込み用スクリプト -->
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
 </head>
 <body>
 
+    <!-- ローディング画面 -->
+    <div id="loader">KAF</div>
+
     <header class="site-header">
         <div class="site-title">
-            <h1 class="glitch" data-text="観測">観測</h1>
-            <p class="subtitle">- An Unofficial KAF Fan Site -</p>
+            <a href="index.html"><h1>観測所</h1></a>
         </div>
         <nav>
             <ul>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Discography</a></li>
-                <li><a href="#">Live</a></li>
-                <li><a href="#">Link</a></li>
+                <li><a href="index.html">Top</a></li>
+                <li><a href="about.html">About KAF</a></li>
+                <li><a href="discography.html">Discography</a></li>
+                <li><a href="live.html">Live</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="news.html">News</a></li>
+                <li><a href="contact.html">Contact</a></li>
             </ul>
         </nav>
     </header>
 
-    <div class="grid-container">
-        <!-- 左カラム：メインコンテンツ -->
-        <main class="content-wrapper">
-            <section class="card">
-                <h2>Information</h2>
-                <p>
-                    バーチャルシンガー花譜さんの活動を個人的に応援する非公式ファンサイトです。<br>
-                    当サイトはKAMITSUBAKI STUDIOの二次創作ガイドラインに則り運営されます。
-                </p>
-                <div class="widget-container">
-                    <!-- shields.ioの画像バッジ -->
-                    <img src="https://img.shields.io/youtube/channel/subscribers/UCQ1U65-Sd-oS06vTdbfeAyQ?style=social" alt="YouTube Channel Subscribers">
-                </div>
-            </section>
-        </main>
-        
-        <!-- 右カラム：サイドバー -->
-        <aside class="sidebar">
-            <div class="card">
-                <h2>Latest Activity</h2>
-                <a class="twitter-timeline" data-height="400" data-theme="dark" href="https://twitter.com/virtual_kaf?ref_src=twsrc%5Etfw">Tweets by virtual_kaf</a> 
-                <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+    <main>
+        <section class="main-visual fade-in">
+             <h2 class="glitch" data-text="観測">観測</h2>
+        </section>
 
-                <div class="youtube-subscribe">
-                    <div class="g-ytsubscribe" data-channelid="UCQ1U65-Sd-oS06vTdbfeAyQ" data-layout="full" data-theme="dark" data-count="default"></div>
+        <!-- 最新情報セクション (YouTubeとXの最新情報) -->
+        <section class="content-wrapper fade-in">
+            <h2 class="section-title">Latest Activities</h2>
+            <div class="latest-info-grid">
+                <!-- 最新YouTube動画 -->
+                <div class="latest-info-item">
+                    <h3>YouTube Movie</h3>
+                    <div class="latest-movie">
+                        <!-- YouTubeの最新動画1本を埋め込むプレイヤー -->
+                        <!-- チャンネルIDに基づいて最新動画のプレイリストを表示 -->
+                        <iframe src="https://www.youtube.com/embed?listType=playlist&list=UUQ1U65-Sd-oS06vTdbfeAyQ" 
+                                width="100%" height="450" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                </div>
+                
+                <!-- X (Twitter) のタイムライン -->
+                <div class="latest-info-item">
+                    <h3>X (Twitter) Posts</h3>
+                    <div class="latest-post">
+                        <a class="twitter-timeline" data-height="480" data-theme="dark" href="https://twitter.com/virtual_kaf?ref_src=twsrc%5Etfw">Tweets by virtual_kaf</a> 
+                        <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                    </div>
                 </div>
             </div>
-        </aside>
-    </div>
+        </section>
+        
+        <!-- コンテンツメニュー -->
+        <section class="content-wrapper fade-in">
+            <h2 class="section-title">Contents</h2>
+            <div class="menu-grid">
+                <a href="about.html" class="menu-item"><h3>About KAF</h3><p>花譜さんについての紹介</p></a>
+                <a href="discography.html" class="menu-item"><h3>Discography</h3><p>楽曲・アルバム一覧</p></a>
+                <a href="live.html" class="menu-item"><h3>Live History</h3><p>ライブ・イベントの記録</p></a>
+                <a href="gallery.html" class="menu-item"><h3>Fan Art Gallery</h3><p>ファンアート作品</p></a>
+                <a href="news.html" class="menu-item"><h3>News & Updates</h3><p>サイトからのお知らせ</p></a>
+                <a href="contact.html" class="menu-item"><h3>Contact Us</h3><p>ご意見・お問い合わせ</p></a>
+            </div>
+        </section>
+
+    </main>
 
     <footer class="site-footer">
         <p>当サイトはファンが運営する非公式サイトであり、花譜さんご本人及びKAMITSUBAKI STUDIO様とは一切関係ありません。</p>
-        <p>&copy; 2025 観測.</p>
+        <p>&copy; 2025 観測所.</p>
     </footer>
 
+    <!-- JavaScriptの読み込み -->
+    <script src="script_loader.js"></script>
+    <script src="script_main.js"></script>
+    <script src="script_animation_control.js"></script>
 </body>
 </html>

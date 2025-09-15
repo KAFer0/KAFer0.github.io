@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - 観測所</title>
+
+    <!-- CSSの読み込み -->
+    <link rel="stylesheet" href="style_reset.css">
+    <link rel="stylesheet" href="style_loader.css">
+    <link rel="stylesheet" href="style_common.css">
+    <link rel="stylesheet" href="style_animation.css">
+    <link rel="stylesheet" href="style_page_contact.css"> <!-- このページ専用CSS -->
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=Noto+Serif+JP:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- ローディング画面 -->
+    <div id="loader">KAF</div>
+
+    <header class="site-header">
+        <div class="site-title">
+            <a href="index.html"><h1>観測所</h1></a>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Top</a></li>
+                <li><a href="about.html">About KAF</a></li>
+                <li><a href="discography.html">Discography</a></li>
+                <li><a href="live.html">Live</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="news.html">News</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="content-wrapper fade-in">
+            <h2 class="section-title">Contact Us</h2>
+            
+            <form class="contact-form" action="#" method="POST">
+                <div class="form-group">
+                    <label for="name">お名前 / Your Name</label>
+                    <input type="text" id="name" name="name" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">メールアドレス / Email Address</label>
+                    <input type="email" id="email" name="email" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label for="subject">件名 / Subject</label>
+                    <input type="text" id="subject" name="subject" class="form-input">
+                </div>
+                <div class="form-group">
+                    <label for="message">メッセージ / Message</label>
+                    <textarea id="message" name="message" class="form-input" required></textarea>
+                </div>
+                <div class="form-group" style="text-align: center;">
+                    <button type="submit" class="submit-button">送信 / Send Message</button>
+                </div>
+            </form>
+
+            <p class="form-note">
+                ご意見・ご感想、または不具合のご報告など、お気軽にお寄せください。<br>
+                返信にはお時間をいただく場合がございますので、ご了承ください。
+            </p>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <p>当サイトはファンが運営する非公式サイトであり、花譜さんご本人及びKAMITSUBAKI STUDIO様とは一切関係ありません。</p>
+        <p>&copy; 2025 観測所.</p>
+    </footer>
+
+    <!-- JavaScriptの読み込み -->
+    <script src="script_loader.js"></script>
+    <script src="script_main.js"></script>
+    <script src="script_animation_control.js"></script>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live History - 観測所</title>
+
+    <!-- CSSの読み込み -->
+    <link rel="stylesheet" href="style_reset.css">
+    <link rel="stylesheet" href="style_loader.css">
+    <link rel="stylesheet" href="style_common.css">
+    <link rel="stylesheet" href="style_animation.css">
+    <link rel="stylesheet" href="style_page_live.css"> <!-- このページ専用CSS -->
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=Noto+Serif+JP:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- ローディング画面 -->
+    <div id="loader">KAF</div>
+
+    <header class="site-header">
+        <div class="site-title">
+            <a href="index.html"><h1>観測所</h1></a>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Top</a></li>
+                <li><a href="about.html">About KAF</a></li>
+                <li><a href="discography.html">Discography</a></li>
+                <li><a href="live.html">Live</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="news.html">News</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="content-wrapper fade-in">
+            <h2 class="section-title">Live History</h2>
+            
+            <div class="timeline">
+                <!-- ライブイベント1 -->
+                <div class="timeline-item left fade-in">
+                    <div class="timeline-content">
+                        <h3>花譜 1st ONE-MAN LIVE「不可解」</h3>
+                        <time datetime="2019-08-01">2019.08.01</time>
+                        <p>花譜さん初のワンマンライブ。彼女のバーチャルアーティストとしての存在を世に知らしめた記念すべき公演。</p>
+                    </div>
+                </div>
+                
+                <!-- ライブイベント2 -->
+                <div class="timeline-item right fade-in">
+                    <div class="timeline-content">
+                        <h3>花譜 2nd ONE-MAN LIVE「不可解弐Q1」</h3>
+                        <time datetime="2020-03-23">2020.03.23</time>
+                        <p>初のバーチャルライブハウスZepp Haneda(TOKYO)での開催。AR技術を駆使した革新的な演出が話題に。</p>
+                    </div>
+                </div>
+
+                <!-- ライブイベント3 -->
+                <div class="timeline-item left fade-in">
+                    <div class="timeline-content">
+                        <h3>花譜 2nd ONE-MAN LIVE「不可解弐Q2」</h3>
+                        <time datetime="2020-10-10">2020.10.10</time>
+                        <p>「不可解弐」シリーズの第二弾。より深化した表現とゲストアーティストとの共演。</p>
+                    </div>
+                </div>
+
+                <!-- ライブイベント4 -->
+                <div class="timeline-item right fade-in">
+                    <div class="timeline-content">
+                        <h3>花譜 2nd ONE-MAN LIVE「不可解弐REBUILDING」</h3>
+                        <time datetime="2021-03-21">2021.03.21</time>
+                        <p>「不可解弐」シリーズを再構築した集大成となる公演。数々の名シーンが生まれた。</p>
+                    </div>
+                </div>
+
+                <!-- ライブイベント5 -->
+                <div class="timeline-item left fade-in">
+                    <div class="timeline-content">
+                        <h3>花譜 3rd ONE-MAN LIVE「不可解参(狂)」</h3>
+                        <time datetime="2022-08-24">2022.08.24</time>
+                        <p>日本武道館で開催された、バーチャルシンガー史上初の快挙を成し遂げた伝説のライブ。</p>
+                    </div>
+                </div>
+
+                <!-- 必要に応じて、ここにさらに多くのライブ情報を追加してください -->
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <p>当サイトはファンが運営する非公式サイトであり、花譜さんご本人及びKAMITSUBAKI STUDIO様とは一切関係ありません。</p>
+        <p>&copy; 2025 観測所.</p>
+    </footer>
+
+    <!-- JavaScriptの読み込み -->
+    <script src="script_loader.js"></script>
+    <script src="script_main.js"></script>
+    <script src="script_animation_control.js"></script>
+</body>
+</html>

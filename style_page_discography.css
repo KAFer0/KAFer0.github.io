@@ -1,0 +1,57 @@
+/*
+  style_page_discography.css
+  ---
+  ディスコグラフィーページ (discography.html) 固有のスタイル。
+  作品のジャケットが並ぶカード型グリッドレイアウトを定義する。
+*/
+
+.disc-grid {
+  display: grid;
+  /* 画面幅に応じて最適なカラム数を自動で計算するレスポンシブなグリッド */
+  /* 各カードの最小幅は250px、最大幅は1fr (利用可能なスペースを均等に分割) */
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+}
+
+.disc-item a {
+  display: block;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  overflow: hidden; /* 角丸からはみ出た画像を隠す */
+  height: 100%;
+  transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+              box-shadow 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* ホバー時の浮き上がるエフェクト */
+.disc-item a:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.disc-thumb img {
+  width: 100%;
+  height: auto;
+  display: block;
+  /* 画像の比率を常に1:1(正方形)に保つ魔法 */
+  aspect-ratio: 1 / 1;
+  /* 正方形にフィットしない画像も、引き伸ばされずに中央部分をいい感じに切り取る */
+  object-fit: cover;
+}
+
+.disc-info {
+  padding: 20px;
+  text-align: left;
+}
+
+.disc-info h3 {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 1.2rem;
+  margin: 0 0 10px 0;
+}
+
+.disc-info p {
+  font-size: 0.9rem;
+  color: #aaa;
+  margin: 0;
+}
