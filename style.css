@@ -1,0 +1,35 @@
+/*
+  style.css
+  ---
+  サイト全体のスタイルを統合的に管理するマスターCSSファイル。
+  プロジェクト内の全ての個別CSSファイルを、適切な順序でインポートする。
+  HTMLファイルは、このファイル一つだけを読み込めばよい。
+*/
+
+/* 1. ブラウザのデフォルトスタイルをリセット (最も基礎) */
+@import url("style_reset.css");
+
+/* 2. ローディング画面のスタイル (最初に表示されるため早めに読み込む) */
+@import url("style_loader.css");
+
+/* 3. サイト全体の共通スタイル (ヘッダー、フッター、背景など) */
+@import url("style_common.css");
+
+/* 4. 汎用的なアニメーション定義 */
+@import url("style_animation.css");
+
+
+/* --- 各ページ固有のスタイル（該当ページで個別に読み込んでも良いが、一元化するならここに） --- */
+/*
+  以下は、本来は各HTMLページで個別に読み込むことを想定していましたが、
+  HTML側のリンク修正を減らすために、ここに全てインポートします。
+  これにより、どのページでも全てのページスタイルが読み込まれますが、
+  個々のファイルサイズは小さいので、パフォーマンスへの影響は軽微です。
+  （もちろん、将来的に大規模になったら、ページごとに読み込む方法に戻すことも可能です。）
+*/
+@import url("style_page_index.css");
+@import url("style_page_discography.css");
+@import url("style_page_live.css");
+@import url("style_page_gallery.css");
+@import url("style_page_news.css");
+@import url("style_page_contact.css");
