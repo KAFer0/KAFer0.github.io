@@ -1,0 +1,188 @@
+/* --- 全体のスタイル --- */
+body {
+    background-color: #0a0a0a;
+    color: #e0e0e0;
+    font-family: 'Noto Sans JP', sans-serif;
+    margin: 0;
+    padding: 40px 20px;
+    -webkit-font-smoothing: antialiased;
+    text-align: center;
+    background-image: url('https://www.transparenttextures.com/patterns/stardust.png');
+    animation: fadeIn 1s ease-in-out;
+}
+
+/* --- ヘッダーとタイトル --- */
+.site-header {
+    margin-bottom: 60px;
+}
+
+.site-title h1 {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 4rem;
+    color: #fff;
+    margin: 0;
+    letter-spacing: 0.2em;
+    font-weight: 700;
+}
+
+.subtitle {
+    font-size: 1rem;
+    color: #aaa;
+    margin-top: 10px;
+    letter-spacing: 0.1em;
+}
+
+/* --- ナビゲーションメニュー --- */
+nav {
+    margin-top: 40px;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+nav li {
+    display: inline-block;
+    margin: 0 18px;
+}
+
+nav a {
+    color: #e0e0e0;
+    text-decoration: none;
+    font-size: 1.1rem;
+    padding: 5px 0;
+    position: relative;
+    transition: color 0.3s;
+}
+
+nav a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: #00bfff;
+    transition: width 0.3s ease-in-out;
+}
+
+nav a:hover {
+    color: #fff;
+}
+
+nav a:hover::after {
+    width: 100%;
+}
+
+/* --- レイアウトコンテナ --- */
+.grid-container {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+    align-items: start;
+}
+
+/* --- コンテンツカード（共通スタイル） --- */
+.card {
+    background: rgba(20, 20, 20, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 30px 40px;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+    height: 100%; /* グリッドアイテムの高さを揃えるため */
+    box-sizing: border-box; /* paddingを含めた高さ計算 */
+}
+
+.card h2 {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 1.8rem;
+    color: #fff;
+    border-bottom: 1px solid #00bfff;
+    padding-bottom: 10px;
+    margin-top: 0;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.card p {
+    text-align: left;
+    line-height: 1.8;
+}
+
+/* --- ウィジェット用コンテナ --- */
+.widget-container {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: 30px;
+    padding-top: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* --- YouTube登録ボタンのコンテナ --- */
+.youtube-subscribe {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* --- フッター --- */
+.site-footer {
+    padding: 40px 20px 0;
+    font-size: 0.8rem;
+    color: #777;
+    margin-top: 60px;
+}
+
+/* --- アニメーション定義 --- */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* グリッチエフェクト */
+.glitch {
+    position: relative;
+    display: inline-block;
+}
+
+.glitch::before,
+.glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #0a0a0a;
+    overflow: hidden;
+    animation: glitch-anim 2.5s infinite linear alternate-reverse;
+}
+
+.glitch::before {
+    left: 2px;
+    text-shadow: -2px 0 #ff00c1;
+    animation-duration: 2s;
+}
+
+.glitch::after {
+    left: -2px;
+    text-shadow: -2px 0 #00bfff;
+     animation-duration: 3s;
+}
+
+@keyframes glitch-anim {
+    0% { clip-path: inset(5% 0 90% 0); } 5% { clip-path: inset(70% 0 10% 0); } 10% { clip-path: inset(95% 0 2% 0); } 15% { clip-path: inset(40% 0 45% 0); } 20% { clip-path: inset(0 0 0 0); } 80% { clip-path: inset(0 0 0 0); } 85% { clip-path: inset(80% 0 5% 0); } 90% { clip-path: inset(20% 0 75% 0); } 95% { clip-path: inset(50% 0 30% 0); } 100% { clip-path: inset(90% 0 5% 0); }
+}
+
+/* --- レスポンシブ対応 --- */
+@media (max-width: 900px) {
+    .grid-container {
+        grid-template-columns: 1fr; /* 1カラム表示に切り替え */
+    }
+}
