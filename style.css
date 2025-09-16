@@ -5,7 +5,7 @@
   全てのスタイル定義をこのファイルに集約している。
   KAMITSUBAKIの世界観を最大化するため、アニメーションノイズ、
   スキャンライン、グロー効果を強化し、ピンクのアクセントを導入。
-  YouTubeランキング、日替わり曲、そしてグッズセクションのスタイルを追加。
+  YouTubeランキング、日替わり曲、グッズセクション、そしてグッズリストのスタイルを追加。
 */
 
 /* --- Google Fonts の読み込み --- */
@@ -367,10 +367,38 @@ body.fade-in-on-load {
 
 .youtube-section iframe {
     width: 100%;
-    height: 200px; /* カウンターの高さに固定 */
+    height: 200px;
     border-radius: 4px;
     box-shadow: 0 0 15px rgba(255, 0, 255, 0.2);
 }
+
+/* YouTube登録者数カウンターの表示スタイル */
+.subscriber-count-display {
+    background-color: rgba(255, 0, 255, 0.1); /* ピンク系の背景 */
+    border: 1px solid rgba(255, 0, 255, 0.4);
+    border-radius: 4px;
+    padding: 20px 0;
+    margin-bottom: 20px; /* 下にスペース */
+    box-shadow: 0 0 20px rgba(255, 0, 255, 0.4); /* ピンクの発光 */
+    animation: textGlowSection 2s ease-in-out infinite alternate; /* グローアニメーション */
+}
+
+.subscriber-count-display .count-label {
+    font-size: 0.9rem;
+    color: #eee;
+    margin-bottom: 5px;
+    letter-spacing: 0.1em;
+}
+
+.subscriber-count-display .current-count {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 0 0 15px rgba(255, 0, 255, 0.8), 0 0 5px rgba(0, 191, 255, 0.4); /* 強い発光 */
+    animation: textGlowHeader 2s ease-in-out infinite alternate; /* ヘッダー並みの強調 */
+}
+
 
 .latest-movie iframe {
   width: 100%;
@@ -874,4 +902,61 @@ textarea.form-input { min-height: 200px; resize: vertical; }
     visibility: visible;
     pointer-events: auto;
     transition: opacity 0.4s ease-in, visibility 0.4s;
+}
+
+
+/*
+  style_page_goods.css の内容 (新規追加)
+  ---
+  グッズページ (goods.html) 固有のスタイル。
+  グッズアイテムが並ぶカード型グリッドレイアウトを定義する。
+*/
+
+.goods-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* グッズのカード幅を調整 */
+  gap: 30px;
+}
+
+.goods-item a {
+  display: block;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  overflow: hidden;
+  height: 100%;
+  transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+              box-shadow 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  border: 1px solid rgba(255, 0, 255, 0.08);
+}
+
+.goods-item a:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 25px rgba(255, 0, 255, 0.8); /* ホバー時にピンクの発光を強調 */
+}
+
+.goods-thumb img {
+  width: 100%;
+  height: auto;
+  display: block;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+}
+
+.goods-info {
+  padding: 20px;
+  text-align: left;
+}
+
+.goods-info h3 {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 1.2rem;
+  margin: 0 0 5px 0;
+  color: #fff;
+}
+
+.goods-info p {
+  font-size: 1.1rem;
+  color: #ff00c1; /* 価格をピンクに */
+  font-weight: bold;
+  margin: 0;
 }

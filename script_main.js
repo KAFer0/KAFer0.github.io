@@ -38,6 +38,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // ==========================================================
     displayYoutubeRanking();
 
+    // ==========================================================
+    // 新規追加: YouTube登録者数カウンターの表示 (手動更新版)
+    // ==========================================================
+    displayYoutubeSubscriberCounter();
+
 
     // 例：
     // handleSmoothScroll();       // ページ内リンクをスムーズにスクロールさせる関数
@@ -134,9 +139,7 @@ function displayTodaysFeaturedSong() {
 }
 
 
-// ==========================================================
-// 新規追加: 「YouTube人気ランキング」を表示する関数 (手動更新版)
-// ==========================================================
+// 「YouTube人気ランキング」を表示する関数 (手動更新版)
 function displayYoutubeRanking() {
     const rankingArea = document.getElementById('youtube-ranking-area');
     if (!rankingArea) {
@@ -147,13 +150,13 @@ function displayYoutubeRanking() {
     // --- ここに、YouTubeの人気曲ランキングデータを手動で定義します ---
     // (※YouTube APIの利用はセキュリティ上の制約が厳しいため、手動更新を推奨)
     const youtubeRanking = [
-        { rank: 1, title: "過去を喰らう", views: "3,000万+", youtubeId: "3xS-jC-g9sY", thumbnail: "https://i.ytimg.com/vi/3xS-jC-g9sY/hqdefault.jpg" },
-        { rank: 2, title: "トウキョウ・シャンディ・ランデヴ", views: "2,500万+", youtubeId: "N_a_k3L3N6A", thumbnail: "https://i.ytimg.com/vi/N_a_k3L3N6A/hqdefault.jpg" },
-        { rank: 3, title: "不可解", views: "2,000万+", youtubeId: "c_jE177b8bM", thumbnail: "https://i.ytimg.com/vi/c_jE177b8bM/hqdefault.jpg" },
-        { rank: 4, title: "食虫植物", views: "1,800万+", youtubeId: "k_Q_XgY7B-0", thumbnail: "https://i.ytimg.com/vi/k_Q_XgY7B-0/hqdefault.jpg" },
-        { rank: 5, title: "心臓と口", views: "1,500万+", youtubeId: "3bF3b8pXk7Q", thumbnail: "https://i.ytimg.com/vi/3bF3b8pXk7Q/hqdefault.jpg" }
-        // さらに多くのランキングアイテムを追加できます。
-        // 再生数（views）は手動で更新してください。thumbnailはyoutubeIdから自動生成される画像URLです。
+        // サムネイル画像は 'maxresdefault.jpg' を優先。存在しない場合は 'hqdefault.jpg' なども試す
+        { rank: 1, title: "過去を喰らう", views: "3,000万+", youtubeId: "3xS-jC-g9sY", thumbnail: "https://img.youtube.com/vi/3xS-jC-g9sY/maxresdefault.jpg" },
+        { rank: 2, title: "トウキョウ・シャンディ・ランデヴ", views: "2,500万+", youtubeId: "N_a_k3L3N6A", thumbnail: "https://img.youtube.com/vi/N_a_k3L3N6A/maxresdefault.jpg" },
+        { rank: 3, title: "不可解", views: "2,000万+", youtubeId: "c_jE177b8bM", thumbnail: "https://img.youtube.com/vi/c_jE177b8bM/maxresdefault.jpg" },
+        { rank: 4, title: "食虫植物", views: "1,800万+", youtubeId: "k_Q_XgY7B-0", thumbnail: "https://img.youtube.com/vi/k_Q_XgY7B-0/maxresdefault.jpg" },
+        { rank: 5, title: "心臓と口", views: "1,500万+", youtubeId: "3bF3b8pXk7Q", thumbnail: "https://img.youtube.com/vi/3bF3b8pXk7Q/maxresdefault.jpg" }
+        // 再生数（views）は手動で更新してください。
     ];
 
     let rankingHtml = '<ul class="youtube-ranking-list">';
@@ -176,4 +179,23 @@ function displayYoutubeRanking() {
     rankingHtml += '</ul>';
 
     rankingArea.innerHTML = rankingHtml;
+}
+
+
+// ==========================================================
+// 新規追加: YouTube登録者数カウンターの表示 (手動更新版)
+// ==========================================================
+function displayYoutubeSubscriberCounter() {
+    const counterElement = document.getElementById('youtube-subscriber-counter');
+    if (!counterElement) {
+        console.warn('YouTube登録者数カウンターの表示エリアが見つかりません。');
+        return;
+    }
+
+    // --- ここに、YouTubeチャンネル登録者数を手動で入力してください ---
+    // 例: "1,000,000" のようにカンマ区切りで入力
+    const subscriberCount = "1,140,000"; // ★★★★★ ここを最新の登録者数に手動で更新 ★★★★★
+
+    // カウンターを更新
+    counterElement.querySelector('.current-count').textContent = subscriberCount;
 }
