@@ -27,7 +27,7 @@ function handleLoader() {
         setTimeout(function() {
             
             // loader要素のクラスリストに 'loaded' を追加する。
-            // これが引き金となり、style_loader.css で定義された
+            // これが引き金となり、style.css で定義された
             // フェードアウトのアニメーションが開始される。
             loaderElement.classList.add('loaded');
 

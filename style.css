@@ -2,34 +2,675 @@
   style.css
   ---
   サイト全体のスタイルを統合的に管理するマスターCSSファイル。
-  プロジェクト内の全ての個別CSSファイルを、適切な順序でインポートする。
-  HTMLファイルは、このファイル一つだけを読み込めばよい。
+  全てのスタイル定義をこのファイルに集約している。
+  KAMITSUBAKIの世界観を最大化するため、アニメーションノイズ、
+  スキャンライン、グロー効果を強化している。
 */
 
-/* 1. ブラウザのデフォルトスタイルをリセット (最も基礎) */
-@import url("style_reset.css");
-
-/* 2. ローディング画面のスタイル (最初に表示されるため早めに読み込む) */
-@import url("style_loader.css");
-
-/* 3. サイト全体の共通スタイル (ヘッダー、フッター、背景など) */
-@import url("style_common.css");
-
-/* 4. 汎用的なアニメーション定義 */
-@import url("style_animation.css");
+/* --- Google Fonts の読み込み --- */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=Noto+Serif+JP:wght@400;700&display=swap');
 
 
-/* --- 各ページ固有のスタイル（該当ページで個別に読み込んでも良いが、一元化するならここに） --- */
 /*
-  以下は、本来は各HTMLページで個別に読み込むことを想定していましたが、
-  HTML側のリンク修正を減らすために、ここに全てインポートします。
-  これにより、どのページでも全てのページスタイルが読み込まれますが、
-  個々のファイルサイズは小さいので、パフォーマンスへの影響は軽微です。
-  （もちろん、将来的に大規模になったら、ページごとに読み込む方法に戻すことも可能です。）
+  style_reset.css の内容
 */
-@import url("style_page_index.css");
-@import url("style_page_discography.css");
-@import url("style_page_live.css");
-@import url("style_page_gallery.css");
-@import url("style_page_news.css");
-@import url("style_page_contact.css");
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+body, h1, h2, h3, h4, h5, h6, p, ul, ol, li, figure, figcaption, blockquote, dl, dd {
+  margin: 0;
+  padding: 0;
+}
+ul, ol { list-style: none; }
+body {
+  min-height: 100vh;
+  line-height: 1.5;
+  text-rendering: optimizeSpeed;
+}
+a { text-decoration: none; color: inherit; }
+img, picture, video, canvas, svg { display: block; max-width: 100%; }
+input, button, textarea, select { font: inherit; }
+table { border-collapse: collapse; border-spacing: 0; }
+
+
+/*
+  style_loader.css の内容
+*/
+
+#loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #0a0a0a;
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    font-family: 'Noto Serif JP', serif;
+    font-size: 1.5rem;
+    letter-spacing: 0.3em;
+    transition: opacity 0.8s ease-in-out, visibility 0.8s;
+}
+
+#loader::after {
+    content: '▋';
+    animation: blink 1s step-end infinite;
+}
+
+#loader.loaded {
+    opacity: 0;
+    visibility: hidden;
+}
+
+@keyframes blink {
+    50% { opacity: 0; }
+}
+
+
+/*
+  style_common.css の内容
+*/
+
+html { scroll-behavior: smooth; }
+body {
+  background-color: #0a0a0a;
+  color: #e0e0e0;
+  font-family: 'Noto Sans JP', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-align: center;
+  position: relative; /* ::after の z-index 基準 */
+}
+
+/* --- 背景ノイズテクスチャ（アニメーション強化！） --- */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-image: url('https://www.transparenttextures.com/patterns/stardust.png');
+  background-size: 150px 150px; /* ノイズのパターンサイズを調整 */
+  opacity: 0.08; /* 不透明度を少し上げる */
+  z-index: -1;
+  pointer-events: none;
+  animation: subtleNoise 20s linear infinite alternate, subtleNoiseScale 10s ease-in-out infinite alternate; /* 新規：ノイズのアニメーションを強化 */
+}
+
+/* --- 新規：スキャンライン効果のオーバーレイ（アニメーション追加！） --- */
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: repeating-linear-gradient(
+        transparent 0px,
+        rgba(0, 255, 255, 0.05) 1px, /* シアン系の微かなライン */
+        rgba(255, 0, 255, 0.05) 2px, /* マゼンタ系の微かなライン */
+        transparent 3px,
+        transparent 5px /* ライン間のスペース */
+    );
+    pointer-events: none;
+    z-index: 9997;
+    opacity: 0.15; /* 不透明度を調整 */
+    animation: scanlineShift 5s linear infinite alternate; /* 新規：スキャンラインをアニメーション */
+}
+
+/* --- ヘッダー --- */
+.site-header {
+  padding: 50px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.site-title a { display: inline-block; }
+.site-title h1 {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 2.5rem;
+  color: #fff;
+  margin: 0;
+  letter-spacing: 0.2em;
+  font-weight: 700;
+  transition: transform 0.3s, color 0.3s;
+  animation: textGlow 2s ease-in-out infinite alternate; /* テキストグロー */
+}
+.site-title a:hover h1 {
+  transform: scale(1.05);
+  color: #00bfff;
+}
+
+/* --- ナビゲーション（ホバーエフェクト強化！） --- */
+nav { margin-top: 30px; }
+nav ul { display: flex; justify-content: center; gap: 20px; }
+nav a {
+  color: #aaa;
+  font-size: 1rem;
+  letter-spacing: 0.1em;
+  padding: 10px;
+  position: relative;
+  transition: color 0.3s, text-shadow 0.3s;
+}
+nav a:hover {
+  color: #fff;
+  text-shadow: 0 0 8px rgba(0, 191, 255, 0.6); /* ホバー時にテキストも発光 */
+}
+/* ナビゲーションのデジタル下線エフェクトを強化 */
+nav a::before,
+nav a::after {
+  content: '';
+  position: absolute;
+  width: 1px; /* 細い線 */
+  height: 0;
+  background: #00bfff;
+  transition: height 0.2s ease-out, background 0.2s ease-out;
+}
+nav a::before { top: 0; left: 0; }
+nav a::after { bottom: 0; right: 0; }
+
+/* ホバー時に青い線が両サイドから伸びて光る */
+nav a:hover::before,
+nav a:hover::after {
+    height: 100%;
+    background: linear-gradient(to bottom, #00bfff, #ff00c1); /* グラデーションで発光感を強調 */
+}
+
+
+/* --- 共通レイアウト --- */
+.content-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 80px 40px;
+  background: rgba(10, 10, 10, 0.4); /* 背景をわずかに明るくし、コンテンツの存在感を出す */
+  border: 1px solid rgba(255, 255, 255, 0.08); /* 細い枠線 */
+  border-radius: 8px;
+  backdrop-filter: blur(8px); /* グラスモーフィズム効果を強化 */
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 0 20px rgba(0, 191, 255, 0.05); /* 微かな発光 */
+}
+
+.section-title {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 2.5rem;
+  color: #fff;
+  border-bottom: 1px solid #00bfff;
+  padding-bottom: 15px;
+  margin-bottom: 50px;
+  animation: textGlow 2s ease-in-out infinite alternate; /* セクションタイトルにもグローアニメーション */
+  text-shadow: 0 0 5px rgba(0, 191, 255, 0.3); /* より強い発光 */
+}
+
+.text-content {
+  text-align: left;
+  line-height: 2;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* --- フッター --- */
+.site-footer {
+  padding: 40px 20px 20px;
+  font-size: 0.8rem;
+  color: #777;
+  margin-top: 80px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* --- 新規アニメーション定義 --- */
+/* ノイズの微妙な動きを強化 */
+@keyframes subtleNoise {
+  0% { background-position: 0 0; }
+  100% { background-position: 200px 200px; } /* 大きく移動させる */
+}
+/* ノイズの拡大縮小を組み合わせる */
+@keyframes subtleNoiseScale {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.05); }
+}
+
+
+/* スキャンラインの微妙な揺らぎ */
+@keyframes scanlineShift {
+  0% { background-position: 0 0; }
+  100% { background-position: 0 5px; } /* 縦に少し揺らす */
+}
+
+/* テキストのグロー効果を強化 */
+@keyframes textGlow {
+  0% { text-shadow: 0 0 5px rgba(0, 191, 255, 0.3), 0 0 10px rgba(255, 255, 255, 0.1); }
+  100% { text-shadow: 0 0 15px rgba(0, 191, 255, 0.7), 0 0 25px rgba(255, 255, 255, 0.2); }
+}
+
+
+/*
+  style_animation.css の内容
+*/
+
+.fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+                transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.fade-in.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+@keyframes pageFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+body.fade-in-on-load {
+    animation: pageFadeIn 0.8s ease-out 0.4s forwards;
+    opacity: 0;
+}
+
+
+/*
+  style_page_index.css の内容
+*/
+
+/* --- メインビジュアル --- */
+.main-visual {
+  padding: 100px 20px;
+  text-align: center;
+}
+
+.main-visual .glitch {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 4rem;
+  color: #fff;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  position: relative;
+  display: inline-block;
+  animation: glitch-anim 3s infinite linear alternate-reverse, textGlow 2s ease-in-out infinite alternate; /* グリッチとグローを併用 */
+}
+
+
+/* --- グリッチエフェクト --- */
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #0a0a0a;
+  overflow: hidden;
+  animation: glitch-anim 3s infinite linear alternate-reverse;
+}
+
+.glitch::before {
+  left: 2px;
+  text-shadow: -2px 0 #ff00c1;
+  animation-duration: 2.5s;
+}
+
+.glitch::after {
+  left: -2px;
+  text-shadow: -2px 0 #00bfff;
+  animation-duration: 3.5s;
+}
+
+@keyframes glitch-anim {
+  0% { clip-path: inset(5% 0 90% 0); } 
+  5% { clip-path: inset(70% 0 10% 0); } 
+  10% { clip-path: inset(95% 0 2% 0); } 
+  15% { clip-path: inset(40% 0 45% 0); } 
+  20% { clip-path: inset(0 0 0 0); } 
+  80% { clip-path: inset(0 0 0 0); } 
+  85% { clip-path: inset(80% 0 5% 0); } 
+  90% { clip-path: inset(20% 0 75% 0); } 
+  95% { clip-path: inset(50% 0 30% 0); } 
+  100% { clip-path: inset(90% 0 5% 0); }
+}
+
+/* --- 最新情報セクション (動画とポスト) --- */
+.latest-info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: start;
+}
+
+.latest-info-item h3 {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 1.5rem;
+  color: #fff;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.latest-movie iframe {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  height: auto;
+  border-radius: 4px;
+}
+
+.latest-post {
+    height: 480px;
+    overflow-y: auto;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
+
+/* --- コンテンツメニュー --- */
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.menu-item {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 40px 30px;
+  border-radius: 4px;
+  transition: background 0.3s, transform 0.3s, box-shadow 0.3s; /* box-shadowも追加 */
+}
+
+.menu-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-5px);
+  box-shadow: 0 0 15px rgba(0, 191, 255, 0.4); /* ホバー時に発光 */
+}
+
+.menu-item h3 {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 1.5rem;
+  color: #fff;
+  margin-bottom: 10px;
+}
+
+.menu-item p {
+  color: #aaa;
+}
+
+/* --- レスポンシブ対応 (スマホ表示) --- */
+@media (max-width: 900px) {
+  .latest-info-grid {
+    grid-template-columns: 1fr;
+  }
+  .menu-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/*
+  style_page_discography.css の内容
+*/
+
+.disc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+}
+
+.disc-item a {
+  display: block;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  overflow: hidden;
+  height: 100%;
+  transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+              box-shadow 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.disc-item a:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 15px rgba(0, 191, 255, 0.4); /* 発光を追加 */
+}
+
+.disc-thumb img {
+  width: 100%;
+  height: auto;
+  display: block;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+}
+
+.disc-info {
+  padding: 20px;
+  text-align: left;
+}
+
+.disc-info h3 {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 1.2rem;
+  margin: 0 0 10px 0;
+}
+
+.disc-info p {
+  font-size: 0.9rem;
+  color: #aaa;
+  margin: 0;
+}
+
+
+/*
+  style_page_live.css の内容
+*/
+
+.timeline {
+  position: relative;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.timeline::after {
+  content: '';
+  position: absolute;
+  width: 2px;
+  background-color: rgba(0, 191, 255, 0.5); /* タイムラインの線をより鮮明に */
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  margin-left: -1px;
+}
+
+.timeline-item {
+  padding: 10px 40px;
+  position: relative;
+  width: 50%;
+}
+
+.timeline-item::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-color: #0a0a0a;
+  border: 2px solid #00bfff;
+  border-radius: 50%;
+  top: 25px;
+  z-index: 1;
+  box-shadow: 0 0 8px rgba(0, 191, 255, 0.5); /* マーカーに発光 */
+}
+
+.timeline-item.left { left: 0; padding-right: 70px; text-align: right; }
+.timeline-item.left::after { right: -10px; }
+.timeline-item.right { left: 50%; padding-left: 70px; text-align: left; }
+.timeline-item.right::after { left: -10px; }
+
+.timeline-content {
+  padding: 20px 30px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 6px;
+  position: relative;
+  border: 1px solid rgba(0, 191, 255, 0.1); /* 微かな青い枠線 */
+}
+
+.timeline-content h3 {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 1.5rem;
+  color: #fff;
+}
+
+.timeline-content time {
+  display: block;
+  font-size: 0.9rem;
+  color: #aaa;
+  margin-bottom: 10px;
+}
+
+@media (max-width: 768px) {
+  .timeline::after { left: 20px; }
+  .timeline-item { width: 100%; padding-left: 50px; padding-right: 20px; }
+  .timeline-item.left, .timeline-item.right { left: 0; text-align: left; }
+  .timeline-item.left::after, .timeline-item.right::after { left: 10px; }
+}
+
+
+/*
+  style_page_gallery.css の内容
+*/
+
+.gallery-grid {
+  column-count: 3;
+  column-gap: 20px;
+}
+
+.gallery-item {
+  margin-bottom: 20px;
+  break-inside: avoid;
+  position: relative;
+  overflow: hidden;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.05); /* 微かな枠線 */
+}
+
+.gallery-item img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* 画像にホバーした際に表示されるオーバーレイを強化 */
+.gallery-item .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.8) 100%); /* グラデーションで奥行きを */
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  pointer-events: none;
+  text-shadow: 0 0 5px rgba(0, 191, 255, 0.5); /* テキストにグロー */
+}
+
+.gallery-item a:hover .overlay { opacity: 1; }
+.overlay-text {
+  text-align: center;
+  transform: translateY(10px);
+  transition: transform 0.3s;
+}
+a:hover .overlay-text { transform: translateY(0); }
+.overlay-text .artist-name { font-weight: bold; }
+.overlay-text .view-artwork { font-size: 0.8em; margin-top: 5px; opacity: 0.7; }
+
+@media (max-width: 900px) { .gallery-grid { column-count: 2; } }
+@media (max-width: 600px) { .gallery-grid { column-count: 1; } }
+
+
+/*
+  style_page_news.css の内容
+*/
+
+.news-list { list-style: none; padding: 0; max-width: 900px; margin: 0 auto; }
+.news-item { border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+.news-item a { display: block; padding: 30px 20px; text-align: left; transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s; }
+.news-item a:hover {
+  background-color: rgba(255, 255, 255, 0.08); /* ホバー時の背景を少し強調 */
+  transform: translateY(-3px); /* わずかに浮き上がる */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* 影を追加 */
+}
+.news-meta { display: flex; align-items: center; gap: 15px; margin-bottom: 10px; }
+.news-date { color: #aaa; font-size: 0.9rem; }
+.news-category {
+  color: #00bfff;
+  font-size: 0.8rem;
+  font-weight: bold;
+  border: 1px solid #00bfff;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background-color: rgba(0, 191, 255, 0.1); /* カテゴリバッジに薄い背景 */
+}
+.news-title { font-family: 'Noto Serif JP', serif; font-size: 1.5rem; color: #fff; font-weight: normal; margin: 0; }
+
+
+/*
+  style_page_contact.css の内容
+*/
+
+.contact-form { max-width: 800px; margin: 0 auto; text-align: left; }
+.form-group { margin-bottom: 25px; }
+.form-group label { display: block; margin-bottom: 8px; color: #aaa; }
+.form-input {
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  padding: 15px;
+  color: #fff;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+.form-input:focus {
+  outline: none;
+  border-color: #00bfff;
+  box-shadow: 0 0 10px rgba(0, 191, 255, 0.5); /* フォーカス時の発光を強化 */
+}
+textarea.form-input { min-height: 200px; resize: vertical; }
+.submit-button {
+  background-color: #00bfff;
+  color: #0a0a0a;
+  font-weight: bold;
+  border: none;
+  padding: 15px 30px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s; /* box-shadowも追加 */
+}
+.submit-button:hover {
+  background-color: #fff;
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(0, 191, 255, 0.6); /* ホバー時に発光 */
+}
+.form-note { margin-top: 40px; font-size: 0.9rem; color: #777; text-align: center; }
+
+
+/*
+  --- ページ遷移アニメーション (script_main.js と連携) ---
+*/
+
+#transition-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #0a0a0a;
+    z-index: 10000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease-out, visibility 0.4s;
+    pointer-events: none;
+}
+
+#transition-overlay.is-active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transition: opacity 0.4s ease-in, visibility 0.4s;
+}
