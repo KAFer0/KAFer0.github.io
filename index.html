@@ -31,6 +31,7 @@
                 <li><a href="gallery.html">Gallery</a></li>
                 <li><a href="news.html">News</a></li>
                 <li><a href="contact.html">Contact</a></li>
+                <li><a href="goods.html">Goods</a></li> <!-- 新規追加 -->
             </ul>
         </nav>
     </header>
@@ -44,12 +45,17 @@
         <section class="content-wrapper fade-in">
             <h2 class="section-title">Latest Activities</h2>
             <div class="latest-info-grid">
-                <!-- 最新YouTube動画 -->
+                <!-- YouTubeカウンターと最新動画 -->
                 <div class="latest-info-item">
-                    <h3>YouTube Movie</h3>
-                    <div class="latest-movie">
-                        <!-- あなたが指定した特定の動画を埋め込み -->
-                        <iframe width="100%" height="450" src="https://www.youtube.com/embed/Bu19Bm6MM_0?si=Sfi-qbHJeedRaQI_" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    <h3>YouTube Channel</h3>
+                    <div class="youtube-section">
+                        <iframe src="https://subscribercounter.com/channel/UCQ1U65-CQdIoZ2_NA4Z4F7A" 
+                                width="100%" height="200" style="border:0; overflow:hidden; background-color: transparent;" 
+                                scrolling="no" frameborder="0" allowTransparency="true"></iframe>
+
+                        <div class="latest-movie" style="margin-top: 20px;">
+                            <iframe width="100%" height="300" src="https://www.youtube.com/embed/Bu19Bm6MM_0?si=Sfi-qbHJeedRaQI_" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        </div>
                     </div>
                 </div>
                 
@@ -57,15 +63,49 @@
                 <div class="latest-info-item">
                     <h3>X (Twitter) Posts</h3>
                     <div class="latest-post">
-                        <a class="twitter-timeline" data-height="480" data-theme="dark" href="https://twitter.com/virtual_kaf?ref_src=twsrc%5Etfw">Tweets by virtual_kaf</a> 
+                        <a class="twitter-timeline" data-height="520" data-theme="dark" href="https://twitter.com/virtual_kaf?ref_src=twsrc%5Etfw">Tweets by virtual_kaf</a> 
                         <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
                     </div>
                 </div>
             </div>
         </section>
         
+        <!-- 日替わりおすすめ曲セクション -->
+        <section class="content-wrapper fade-in" style="margin-top: 80px;">
+            <h2 class="section-title">今日の観測曲 / Today's Featured Song</h2>
+            <div class="featured-song" id="featured-song-area">
+                <!-- JavaScriptによってここに曲情報が挿入されます -->
+                <p>ロード中...</p> 
+            </div>
+        </section>
+
+        <!-- ▼▼▼ 新規追加: YouTube再生数ランキングセクション ▼▼▼ -->
+        <section class="content-wrapper fade-in" style="margin-top: 80px;">
+            <h2 class="section-title">YouTube Popular Songs Ranking</h2>
+            <div class="youtube-ranking" id="youtube-ranking-area">
+                <!-- JavaScriptによってここにランキングが挿入されます -->
+                <p>ロード中...</p>
+            </div>
+        </section>
+        <!-- ▲▲▲ ここまで追加 ▲▲▲ -->
+
+        <!-- ▼▼▼ 新規追加: グッズ情報セクションへの導線 ▼▼▼ -->
+        <section class="content-wrapper fade-in" style="margin-top: 80px;">
+            <h2 class="section-title">Official Goods</h2>
+            <div class="goods-promo">
+                <a href="goods.html" class="goods-banner">
+                    <img src="https://placehold.jp/3d4070/ffffff/1000x300.png?text=花譜%20OFFICIAL%20GOODS" alt="花譜オフィシャルグッズ">
+                    <div class="goods-overlay">
+                        <h3>グッズページへ</h3>
+                        <p>KAFの最新アイテムをチェック</p>
+                    </div>
+                </a>
+            </div>
+        </section>
+        <!-- ▲▲▲ ここまで追加 ▲▲▲ -->
+
         <!-- コンテンツメニュー -->
-        <section class="content-wrapper fade-in">
+        <section class="content-wrapper fade-in" style="margin-top: 80px;">
             <h2 class="section-title">Contents</h2>
             <div class="menu-grid">
                 <a href="about.html" class="menu-item"><h3>About KAF</h3><p>花譜さんについての紹介</p></a>
@@ -74,6 +114,7 @@
                 <a href="gallery.html" class="menu-item"><h3>Fan Art Gallery</h3><p>ファンアート作品</p></a>
                 <a href="news.html" class="menu-item"><h3>News & Updates</h3><p>サイトからのお知らせ</p></a>
                 <a href="contact.html" class="menu-item"><h3>Contact Us</h3><p>ご意見・お問い合わせ</p></a>
+                <a href="goods.html" class="menu-item"><h3>Official Goods</h3><p>花譜さんのグッズ情報</p></a> <!-- 新規追加 -->
             </div>
         </section>
 

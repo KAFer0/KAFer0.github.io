@@ -4,7 +4,8 @@
   サイト全体のスタイルを統合的に管理するマスターCSSファイル。
   全てのスタイル定義をこのファイルに集約している。
   KAMITSUBAKIの世界観を最大化するため、アニメーションノイズ、
-  スキャンライン、グロー効果を強化している。
+  スキャンライン、グロー効果を強化し、ピンクのアクセントを導入。
+  YouTubeランキング、日替わり曲、そしてグッズセクションのスタイルを追加。
 */
 
 /* --- Google Fonts の読み込み --- */
@@ -27,6 +28,7 @@ body {
   min-height: 100vh;
   line-height: 1.5;
   text-rendering: optimizeSpeed;
+  position: relative;
 }
 a { text-decoration: none; color: inherit; }
 img, picture, video, canvas, svg { display: block; max-width: 100%; }
@@ -82,10 +84,10 @@ body {
   font-family: 'Noto Sans JP', sans-serif;
   -webkit-font-smoothing: antialiased;
   text-align: center;
-  position: relative; /* ::after の z-index 基準 */
+  position: relative;
 }
 
-/* --- 背景ノイズテクスチャ（アニメーション強化！） --- */
+/* --- 背景ノイズテクスチャ（強化されたアニメーション） --- */
 body::before {
   content: '';
   position: fixed;
@@ -94,14 +96,16 @@ body::before {
   width: 100vw;
   height: 100vh;
   background-image: url('https://www.transparenttextures.com/patterns/stardust.png');
-  background-size: 150px 150px; /* ノイズのパターンサイズを調整 */
-  opacity: 0.08; /* 不透明度を少し上げる */
+  background-size: 100px 100px;
+  opacity: 0.1;
   z-index: -1;
   pointer-events: none;
-  animation: subtleNoise 20s linear infinite alternate, subtleNoiseScale 10s ease-in-out infinite alternate; /* 新規：ノイズのアニメーションを強化 */
+  animation: subtleNoiseX 25s linear infinite alternate, 
+             subtleNoiseY 30s linear infinite alternate,
+             subtleNoiseScale 12s ease-in-out infinite alternate;
 }
 
-/* --- 新規：スキャンライン効果のオーバーレイ（アニメーション追加！） --- */
+/* --- 新規：スキャンライン効果のオーバーレイ（ピンクのアクセントとアニメーション追加！） --- */
 body::after {
     content: '';
     position: fixed;
@@ -111,15 +115,15 @@ body::after {
     height: 100vh;
     background: repeating-linear-gradient(
         transparent 0px,
-        rgba(0, 255, 255, 0.05) 1px, /* シアン系の微かなライン */
-        rgba(255, 0, 255, 0.05) 2px, /* マゼンタ系の微かなライン */
+        rgba(0, 255, 255, 0.04) 1px,
+        rgba(255, 0, 255, 0.04) 2px,
         transparent 3px,
-        transparent 5px /* ライン間のスペース */
+        transparent 6px
     );
     pointer-events: none;
     z-index: 9997;
-    opacity: 0.15; /* 不透明度を調整 */
-    animation: scanlineShift 5s linear infinite alternate; /* 新規：スキャンラインをアニメーション */
+    opacity: 0.2;
+    animation: scanlineShift 6s linear infinite alternate, scanlineFade 3s ease-in-out infinite alternate;
 }
 
 /* --- ヘッダー --- */
@@ -137,11 +141,11 @@ body::after {
   letter-spacing: 0.2em;
   font-weight: 700;
   transition: transform 0.3s, color 0.3s;
-  animation: textGlow 2s ease-in-out infinite alternate; /* テキストグロー */
+  animation: textGlowHeader 2.5s ease-in-out infinite alternate;
 }
 .site-title a:hover h1 {
   transform: scale(1.05);
-  color: #00bfff;
+  color: #ff00c1;
 }
 
 /* --- ナビゲーション（ホバーエフェクト強化！） --- */
@@ -157,26 +161,25 @@ nav a {
 }
 nav a:hover {
   color: #fff;
-  text-shadow: 0 0 8px rgba(0, 191, 255, 0.6); /* ホバー時にテキストも発光 */
+  text-shadow: 0 0 10px rgba(255, 0, 255, 0.8), 0 0 20px rgba(0, 191, 255, 0.4);
 }
-/* ナビゲーションのデジタル下線エフェクトを強化 */
 nav a::before,
 nav a::after {
   content: '';
   position: absolute;
-  width: 1px; /* 細い線 */
+  width: 1px;
   height: 0;
-  background: #00bfff;
-  transition: height 0.2s ease-out, background 0.2s ease-out;
+  background: linear-gradient(to top, #ff00c1, #00bfff);
+  transition: height 0.2s ease-out, opacity 0.2s ease-out;
+  opacity: 0.7;
 }
 nav a::before { top: 0; left: 0; }
 nav a::after { bottom: 0; right: 0; }
 
-/* ホバー時に青い線が両サイドから伸びて光る */
 nav a:hover::before,
 nav a:hover::after {
     height: 100%;
-    background: linear-gradient(to bottom, #00bfff, #ff00c1); /* グラデーションで発光感を強調 */
+    opacity: 1;
 }
 
 
@@ -185,23 +188,23 @@ nav a:hover::after {
   max-width: 1200px;
   margin: 0 auto;
   padding: 80px 40px;
-  background: rgba(10, 10, 10, 0.4); /* 背景をわずかに明るくし、コンテンツの存在感を出す */
-  border: 1px solid rgba(255, 255, 255, 0.08); /* 細い枠線 */
+  background: rgba(10, 10, 10, 0.5);
+  border: 1px solid rgba(255, 0, 255, 0.15);
   border-radius: 8px;
-  backdrop-filter: blur(8px); /* グラスモーフィズム効果を強化 */
-  -webkit-backdrop-filter: blur(8px);
-  box-shadow: 0 0 20px rgba(0, 191, 255, 0.05); /* 微かな発光 */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 0 25px rgba(255, 0, 255, 0.1), 0 0 10px rgba(0, 191, 255, 0.05);
 }
 
 .section-title {
   font-family: 'Noto Serif JP', serif;
   font-size: 2.5rem;
   color: #fff;
-  border-bottom: 1px solid #00bfff;
+  border-bottom: 1px solid #ff00c1;
   padding-bottom: 15px;
   margin-bottom: 50px;
-  animation: textGlow 2s ease-in-out infinite alternate; /* セクションタイトルにもグローアニメーション */
-  text-shadow: 0 0 5px rgba(0, 191, 255, 0.3); /* より強い発光 */
+  animation: textGlowSection 2.5s ease-in-out infinite alternate;
+  text-shadow: 0 0 10px rgba(255, 0, 255, 0.4);
 }
 
 .text-content {
@@ -221,28 +224,43 @@ nav a:hover::after {
 }
 
 /* --- 新規アニメーション定義 --- */
-/* ノイズの微妙な動きを強化 */
-@keyframes subtleNoise {
-  0% { background-position: 0 0; }
-  100% { background-position: 200px 200px; } /* 大きく移動させる */
+/* ノイズの微妙な動きを強化 (X軸) */
+@keyframes subtleNoiseX {
+  0% { background-position-x: 0; }
+  100% { background-position-x: 200px; }
+}
+/* ノイズの微妙な動きを強化 (Y軸) */
+@keyframes subtleNoiseY {
+  0% { background-position-y: 0; }
+  100% { background-position-y: 150px; }
 }
 /* ノイズの拡大縮小を組み合わせる */
 @keyframes subtleNoiseScale {
     0% { transform: scale(1); }
-    100% { transform: scale(1.05); }
+    100% { transform: scale(1.03); }
 }
 
-
-/* スキャンラインの微妙な揺らぎ */
+/* スキャンラインの微妙な揺らぎとフェード */
 @keyframes scanlineShift {
-  0% { background-position: 0 0; }
-  100% { background-position: 0 5px; } /* 縦に少し揺らす */
+  0% { background-position-y: 0; }
+  100% { background-position-y: 10px; }
+}
+@keyframes scanlineFade {
+    0%, 100% { opacity: 0.15; }
+    50% { opacity: 0.25; }
 }
 
-/* テキストのグロー効果を強化 */
-@keyframes textGlow {
-  0% { text-shadow: 0 0 5px rgba(0, 191, 255, 0.3), 0 0 10px rgba(255, 255, 255, 0.1); }
-  100% { text-shadow: 0 0 15px rgba(0, 191, 255, 0.7), 0 0 25px rgba(255, 255, 255, 0.2); }
+
+/* テキストのグロー効果 (ヘッダータイトル用) */
+@keyframes textGlowHeader {
+  0% { text-shadow: 0 0 8px rgba(0, 191, 255, 0.4), 0 0 15px rgba(255, 0, 255, 0.2); }
+  100% { text-shadow: 0 0 15px rgba(0, 191, 255, 0.8), 0 0 30px rgba(255, 0, 255, 0.4); }
+}
+
+/* テキストのグロー効果 (セクションタイトル用) */
+@keyframes textGlowSection {
+  0% { text-shadow: 0 0 5px rgba(255, 0, 255, 0.3), 0 0 10px rgba(0, 191, 255, 0.1); }
+  100% { text-shadow: 0 0 10px rgba(255, 0, 255, 0.6), 0 0 20px rgba(0, 191, 255, 0.2); }
 }
 
 
@@ -288,7 +306,7 @@ body.fade-in-on-load {
   letter-spacing: 0.2em;
   position: relative;
   display: inline-block;
-  animation: glitch-anim 3s infinite linear alternate-reverse, textGlow 2s ease-in-out infinite alternate; /* グリッチとグローを併用 */
+  animation: glitch-anim 3s infinite linear alternate-reverse, textGlowHeader 2.5s ease-in-out infinite alternate;
 }
 
 
@@ -347,19 +365,197 @@ body.fade-in-on-load {
   text-align: left;
 }
 
+.youtube-section iframe {
+    width: 100%;
+    height: 200px; /* カウンターの高さに固定 */
+    border-radius: 4px;
+    box-shadow: 0 0 15px rgba(255, 0, 255, 0.2);
+}
+
 .latest-movie iframe {
   width: 100%;
   aspect-ratio: 16 / 9;
   height: auto;
   border-radius: 4px;
+  box-shadow: 0 0 15px rgba(255, 0, 255, 0.2);
 }
 
 .latest-post {
-    height: 480px;
+    height: 520px;
     overflow-y: auto;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 0, 255, 0.15);
     border-radius: 4px;
+    box-shadow: 0 0 15px rgba(0, 191, 255, 0.2);
 }
+
+/* --- 日替わりおすすめ曲セクション --- */
+.featured-song {
+    padding: 30px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 8px;
+    border: 1px solid rgba(255, 0, 255, 0.1);
+    box-shadow: 0 0 15px rgba(255, 0, 255, 0.1);
+    text-align: left;
+}
+
+.featured-song-video iframe {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    height: auto;
+    border-radius: 4px;
+    box-shadow: 0 0 10px rgba(0, 191, 255, 0.3);
+}
+
+.featured-song-info {
+    margin-top: 20px;
+}
+
+.featured-song-info h3 {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 1.8rem;
+    color: #fff;
+    margin-bottom: 5px;
+    animation: textGlowSection 2s ease-in-out infinite alternate;
+}
+
+.featured-song-info p {
+    font-size: 1.1rem;
+    color: #aaa;
+    margin-bottom: 15px;
+}
+
+.view-on-youtube-button {
+    display: inline-block;
+    background-color: #ff00c1;
+    color: #0a0a0a;
+    padding: 10px 25px;
+    border-radius: 4px;
+    font-weight: bold;
+    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+}
+
+.view-on-youtube-button:hover {
+    background-color: #fff;
+    transform: translateY(-3px);
+    box-shadow: 0 0 15px rgba(255, 0, 255, 0.8), 0 0 5px rgba(0, 191, 255, 0.4);
+}
+
+
+/* --- YouTube人気ランキングセクション --- */
+.youtube-ranking-list {
+    list-style: none;
+    padding: 0;
+}
+
+.ranking-item {
+    display: flex;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px dashed rgba(255, 0, 255, 0.1);
+    transition: background-color 0.3s;
+}
+
+.ranking-item:last-child {
+    border-bottom: none;
+}
+
+.ranking-item:hover {
+    background-color: rgba(255, 0, 255, 0.03);
+}
+
+.ranking-number {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #ff00c1;
+    width: 60px;
+    text-align: center;
+    flex-shrink: 0;
+    text-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
+}
+
+.ranking-thumbnail img {
+    width: 80px;
+    height: 45px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-right: 15px;
+    box-shadow: 0 0 8px rgba(0, 191, 255, 0.3);
+}
+
+.ranking-info {
+    text-align: left;
+    flex-grow: 1;
+}
+
+.ranking-info h4 {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 1.1rem;
+    color: #fff;
+    margin: 0 0 5px 0;
+}
+
+.ranking-info p {
+    font-size: 0.9rem;
+    color: #aaa;
+    margin: 0;
+}
+
+
+/* --- グッズプロモーションセクション --- */
+.goods-promo {
+    text-align: center;
+}
+
+.goods-banner {
+    display: block;
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(255, 0, 255, 0.3);
+    transition: box-shadow 0.3s, transform 0.3s;
+    border: 1px solid rgba(255, 0, 255, 0.2);
+}
+
+.goods-banner:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 30px rgba(255, 0, 255, 0.7), 0 0 15px rgba(0, 191, 255, 0.4);
+}
+
+.goods-banner img {
+    width: 100%;
+    height: auto;
+    display: block;
+    filter: brightness(0.6);
+    transition: filter 0.3s;
+}
+
+.goods-banner:hover img {
+    filter: brightness(0.8);
+}
+
+.goods-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+    pointer-events: none;
+}
+
+.goods-overlay h3 {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 2.5rem;
+    margin: 0 0 10px 0;
+    text-shadow: 0 0 15px rgba(255, 0, 255, 0.8);
+}
+
+.goods-overlay p {
+    font-size: 1.1rem;
+    color: #eee;
+}
+
 
 /* --- コンテンツメニュー --- */
 .menu-grid {
@@ -372,13 +568,14 @@ body.fade-in-on-load {
   background: rgba(255, 255, 255, 0.05);
   padding: 40px 30px;
   border-radius: 4px;
-  transition: background 0.3s, transform 0.3s, box-shadow 0.3s; /* box-shadowも追加 */
+  transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+  border: 1px solid rgba(255, 0, 255, 0.08);
 }
 
 .menu-item:hover {
   background: rgba(255, 255, 255, 0.1);
   transform: translateY(-5px);
-  box-shadow: 0 0 15px rgba(0, 191, 255, 0.4); /* ホバー時に発光 */
+  box-shadow: 0 0 25px rgba(255, 0, 255, 0.6), 0 0 15px rgba(0, 191, 255, 0.3);
 }
 
 .menu-item h3 {
@@ -386,6 +583,7 @@ body.fade-in-on-load {
   font-size: 1.5rem;
   color: #fff;
   margin-bottom: 10px;
+  animation: textGlowSection 2s ease-in-out infinite alternate;
 }
 
 .menu-item p {
@@ -421,11 +619,12 @@ body.fade-in-on-load {
   height: 100%;
   transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
               box-shadow 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  border: 1px solid rgba(255, 0, 255, 0.08);
 }
 
 .disc-item a:hover {
   transform: translateY(-8px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 15px rgba(0, 191, 255, 0.4); /* 発光を追加 */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 25px rgba(255, 0, 255, 0.8);
 }
 
 .disc-thumb img {
@@ -468,11 +667,12 @@ body.fade-in-on-load {
   content: '';
   position: absolute;
   width: 2px;
-  background-color: rgba(0, 191, 255, 0.5); /* タイムラインの線をより鮮明に */
+  background: linear-gradient(to bottom, #ff00c1, #00bfff);
   top: 0;
   bottom: 0;
   left: 50%;
   margin-left: -1px;
+  box-shadow: 0 0 12px rgba(255, 0, 255, 0.7);
 }
 
 .timeline-item {
@@ -487,11 +687,11 @@ body.fade-in-on-load {
   width: 20px;
   height: 20px;
   background-color: #0a0a0a;
-  border: 2px solid #00bfff;
+  border: 2px solid #ff00c1;
   border-radius: 50%;
   top: 25px;
   z-index: 1;
-  box-shadow: 0 0 8px rgba(0, 191, 255, 0.5); /* マーカーに発光 */
+  box-shadow: 0 0 12px rgba(255, 0, 255, 0.9);
 }
 
 .timeline-item.left { left: 0; padding-right: 70px; text-align: right; }
@@ -504,7 +704,8 @@ body.fade-in-on-load {
   background: rgba(255, 255, 255, 0.05);
   border-radius: 6px;
   position: relative;
-  border: 1px solid rgba(0, 191, 255, 0.1); /* 微かな青い枠線 */
+  border: 1px solid rgba(255, 0, 255, 0.15);
+  box-shadow: 0 0 15px rgba(255, 0, 255, 0.2);
 }
 
 .timeline-content h3 {
@@ -543,7 +744,7 @@ body.fade-in-on-load {
   position: relative;
   overflow: hidden;
   border-radius: 4px;
-  border: 1px solid rgba(255, 255, 255, 0.05); /* 微かな枠線 */
+  border: 1px solid rgba(255, 0, 255, 0.1);
 }
 
 .gallery-item img {
@@ -559,7 +760,7 @@ body.fade-in-on-load {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.8) 100%); /* グラデーションで奥行きを */
+  background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(255,0,255,0.4) 50%, rgba(0,0,0,0.8) 100%);
   color: #fff;
   display: flex;
   justify-content: center;
@@ -567,7 +768,7 @@ body.fade-in-on-load {
   opacity: 0;
   transition: opacity 0.3s ease-in-out;
   pointer-events: none;
-  text-shadow: 0 0 5px rgba(0, 191, 255, 0.5); /* テキストにグロー */
+  text-shadow: 0 0 10px rgba(255, 0, 255, 0.8), 0 0 20px rgba(0, 191, 255, 0.4);
 }
 
 .gallery-item a:hover .overlay { opacity: 1; }
@@ -592,20 +793,20 @@ a:hover .overlay-text { transform: translateY(0); }
 .news-item { border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
 .news-item a { display: block; padding: 30px 20px; text-align: left; transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s; }
 .news-item a:hover {
-  background-color: rgba(255, 255, 255, 0.08); /* ホバー時の背景を少し強調 */
-  transform: translateY(-3px); /* わずかに浮き上がる */
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* 影を追加 */
+  background-color: rgba(255, 0, 255, 0.08);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(255, 0, 255, 0.3);
 }
 .news-meta { display: flex; align-items: center; gap: 15px; margin-bottom: 10px; }
 .news-date { color: #aaa; font-size: 0.9rem; }
 .news-category {
-  color: #00bfff;
+  color: #ff00c1;
   font-size: 0.8rem;
   font-weight: bold;
-  border: 1px solid #00bfff;
+  border: 1px solid #ff00c1;
   padding: 2px 8px;
   border-radius: 4px;
-  background-color: rgba(0, 191, 255, 0.1); /* カテゴリバッジに薄い背景 */
+  background-color: rgba(255, 0, 255, 0.15);
 }
 .news-title { font-family: 'Noto Serif JP', serif; font-size: 1.5rem; color: #fff; font-weight: normal; margin: 0; }
 
@@ -620,7 +821,7 @@ a:hover .overlay-text { transform: translateY(0); }
 .form-input {
   width: 100%;
   background-color: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 0, 255, 0.25);
   border-radius: 4px;
   padding: 15px;
   color: #fff;
@@ -628,24 +829,24 @@ a:hover .overlay-text { transform: translateY(0); }
 }
 .form-input:focus {
   outline: none;
-  border-color: #00bfff;
-  box-shadow: 0 0 10px rgba(0, 191, 255, 0.5); /* フォーカス時の発光を強化 */
+  border-color: #ff00c1;
+  box-shadow: 0 0 20px rgba(255, 0, 255, 0.9);
 }
 textarea.form-input { min-height: 200px; resize: vertical; }
 .submit-button {
-  background-color: #00bfff;
+  background-color: #ff00c1;
   color: #0a0a0a;
   font-weight: bold;
   border: none;
   padding: 15px 30px;
   border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s; /* box-shadowも追加 */
+  transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
 }
 .submit-button:hover {
   background-color: #fff;
   transform: scale(1.05);
-  box-shadow: 0 0 15px rgba(0, 191, 255, 0.6); /* ホバー時に発光 */
+  box-shadow: 0 0 30px rgba(255, 0, 255, 0.9), 0 0 15px rgba(0, 191, 255, 0.5);
 }
 .form-note { margin-top: 40px; font-size: 0.9rem; color: #777; text-align: center; }
 

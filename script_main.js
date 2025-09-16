@@ -3,7 +3,7 @@
   ---
   サイト全体のJavaScript動作の起点（エントリーポイント）となるファイル。
   各機能の初期化や、共通のヘルパー関数などを定義する。
-  ページ遷移アニメーションの制御もここで行う。
+  ページ遷移アニメーションの制御、今日の観測曲、YouTubeランキングなどをここで行う。
 */
 
 
@@ -26,6 +26,17 @@ document.addEventListener('DOMContentLoaded', function() {
     // (ローディング画面消去後、ページ全体がフワッと現れるための設定)
     // ==========================================================
     document.body.classList.add('fade-in-on-load');
+
+    // ==========================================================
+    // 「今日の観測曲」機能の初期化
+    // ==========================================================
+    displayTodaysFeaturedSong();
+
+    // ==========================================================
+    // 新規追加: 「YouTube人気ランキング」機能の初期化
+    // (※手動更新版)
+    // ==========================================================
+    displayYoutubeRanking();
 
 
     // 例：
@@ -68,4 +79,101 @@ function initializePageTransition() {
             });
         }
     });
+}
+
+
+// 「今日の観測曲」を表示する関数
+function displayTodaysFeaturedSong() {
+    const featuredSongArea = document.getElementById('featured-song-area');
+    if (!featuredSongArea) {
+        console.warn('今日の観測曲を表示するエリアが見つかりません。');
+        return;
+    }
+
+    // --- おすすめ曲のリスト ---
+    const kafSongs = [
+        { title: "過去を喰らう", artist: "花譜", youtubeId: "3xS-jC-g9sY" },
+        { title: "不可解", artist: "花譜", youtubeId: "c_jE177b8bM" },
+        { title: "トウキョウ・シャンディ・ランデヴ", artist: "花譜 feat. ツミキ", youtubeId: "N_a_k3L3N6A" },
+        { title: "心臓と口", artist: "花譜", youtubeId: "3bF3b8pXk7Q" },
+        { title: "戸惑いテレパシー", artist: "花譜", youtubeId: "Qp489c7484w" },
+        { title: "魔女", artist: "V.W.P", youtubeId: "d1sN3G_CsqM" },
+        { title: "流動", artist: "花譜", youtubeId: "3m0VvIe47dM" },
+        { title: "祭壇", artist: "花譜", youtubeId: "V5l9TqE9Pj4" }
+        // さらにここに多くの曲を追加できます！
+    ];
+
+    // 今日の日付に基づいて、毎日同じ曲が選ばれるようにする
+    const today = new Date();
+    const dayOfYear = Math.floor((today - new Date(today.getFullYear(), 0, 0)) / 1000 / 60 / 60 / 24);
+    const randomIndex = dayOfYear % kafSongs.length;
+    
+    const todaysSong = kafSongs[randomIndex];
+
+    // HTMLを生成して挿入
+    featuredSongArea.innerHTML = `
+        <div class="featured-song-content">
+            <div class="featured-song-video">
+                <iframe 
+                    width="100%" 
+                    height="315" 
+                    src="https://www.youtube.com/embed/${todaysSong.youtubeId}" 
+                    title="YouTube video player" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                    allowfullscreen>
+                </iframe>
+            </div>
+            <div class="featured-song-info">
+                <h3>${todaysSong.title}</h3>
+                <p>${todaysSong.artist}</p>
+                <a href="https://www.youtube.com/watch?v=${todaysSong.youtubeId}" target="_blank" class="view-on-youtube-button">YouTubeで観測</a>
+            </div>
+        </div>
+    `;
+}
+
+
+// ==========================================================
+// 新規追加: 「YouTube人気ランキング」を表示する関数 (手動更新版)
+// ==========================================================
+function displayYoutubeRanking() {
+    const rankingArea = document.getElementById('youtube-ranking-area');
+    if (!rankingArea) {
+        console.warn('YouTubeランキングを表示するエリアが見つかりません。');
+        return;
+    }
+
+    // --- ここに、YouTubeの人気曲ランキングデータを手動で定義します ---
+    // (※YouTube APIの利用はセキュリティ上の制約が厳しいため、手動更新を推奨)
+    const youtubeRanking = [
+        { rank: 1, title: "過去を喰らう", views: "3,000万+", youtubeId: "3xS-jC-g9sY", thumbnail: "https://i.ytimg.com/vi/3xS-jC-g9sY/hqdefault.jpg" },
+        { rank: 2, title: "トウキョウ・シャンディ・ランデヴ", views: "2,500万+", youtubeId: "N_a_k3L3N6A", thumbnail: "https://i.ytimg.com/vi/N_a_k3L3N6A/hqdefault.jpg" },
+        { rank: 3, title: "不可解", views: "2,000万+", youtubeId: "c_jE177b8bM", thumbnail: "https://i.ytimg.com/vi/c_jE177b8bM/hqdefault.jpg" },
+        { rank: 4, title: "食虫植物", views: "1,800万+", youtubeId: "k_Q_XgY7B-0", thumbnail: "https://i.ytimg.com/vi/k_Q_XgY7B-0/hqdefault.jpg" },
+        { rank: 5, title: "心臓と口", views: "1,500万+", youtubeId: "3bF3b8pXk7Q", thumbnail: "https://i.ytimg.com/vi/3bF3b8pXk7Q/hqdefault.jpg" }
+        // さらに多くのランキングアイテムを追加できます。
+        // 再生数（views）は手動で更新してください。thumbnailはyoutubeIdから自動生成される画像URLです。
+    ];
+
+    let rankingHtml = '<ul class="youtube-ranking-list">';
+    youtubeRanking.forEach(song => {
+        rankingHtml += `
+            <li class="ranking-item fade-in">
+                <a href="https://www.youtube.com/watch?v=${song.youtubeId}" target="_blank">
+                    <span class="ranking-number">#${song.rank}</span>
+                    <div class="ranking-thumbnail">
+                        <img src="${song.thumbnail}" alt="${song.title} サムネイル">
+                    </div>
+                    <div class="ranking-info">
+                        <h4>${song.title}</h4>
+                        <p>${song.views} views</p>
+                    </div>
+                </a>
+            </li>
+        `;
+    });
+    rankingHtml += '</ul>';
+
+    rankingArea.innerHTML = rankingHtml;
 }
